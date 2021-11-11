@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
+}
+
+.body--inicio{
+    margin: 0 10%;
+}
+
+.body--inicio--container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.body--inicio--info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body--inicio--info h3{
+    font-size: 35pt;
+    margin: 5vh 0;
+}
+
+.body--inicio--info p{
+    text-align: center;
+    width: 450px;
+    font-size: 25pt;
+}
+
+.body--inicio--btnComecar{
+    background-color: white;
+    margin-top: 5vh;
+    height: auto;
+    width: auto;
+    border-radius: 75px;
+    padding: 0 10px;
+}
+
+.body--inicio--btnComecar a{
+    font-size: 25pt;
+    text-decoration: none;
+    color: black;
+    transition: ease 0.3s;
+}
+
+.body--inicio--logo{
+    width: 400px;
+    height: 400px;
+}
+
+.body--inicio--image{
+    margin-top: 20%;
+}
