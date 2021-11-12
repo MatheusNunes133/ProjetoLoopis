@@ -42,7 +42,18 @@ function mostrarTarefa(){
     let tarefa = document.createElement('div');
     tarefa.className = 'body--lista--tarefa';
 
-    tarefa.innerHTML = '<p class="body--lista--tarefa--nome">' + arrayTarefas[arrayTarefas.length - 1] + '</p>';
+    tarefa.innerHTML = `
+    <div class="container--tarefas">
+        <div class="lista--checkName">
+            <input type="checkbox" />
+            <label for="checkbox-1">${arrayTarefas[arrayTarefas.length-1]}</label>
+        </div>
+        <div class="lista--opcoes">
+            <button class="lista--opcoes--editar"></button>
+            <button class="lista--opcoes--excluir"></button>
+        </div>
+    </div>
+    `;
     let divPai = document.getElementsByClassName('body--lista--positionBtnAdd')[0].parentNode;
     let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
 
@@ -54,7 +65,18 @@ function mostrarTarefasSalvas(){
         let tarefa = document.createElement('div');
         tarefa.className = 'body--lista--tarefa';
 
-        tarefa.innerHTML = '<p class="body--lista--tarefa--nome">' + arrayTarefas[tarefaIndice] + '</p>';
+        tarefa.innerHTML = `
+        <div class="container--tarefas">
+            <div class="lista--checkName">
+                <input type="checkbox" />
+                <label for="checkbox-1">${arrayTarefas[tarefaIndice]}</label>
+            </div>
+            <div class="lista--opcoes">
+                <button class="lista--opcoes--editar"></button>
+                <button class="lista--opcoes--excluir"></button>
+            </div>
+        </div>
+        `;
         let divPai = document.getElementsByClassName('body--lista--positionBtnAdd')[0].parentNode;
         let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
 

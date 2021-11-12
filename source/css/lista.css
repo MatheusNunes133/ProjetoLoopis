@@ -241,3 +241,64 @@ body{
         transform: translate3d(0,0,0);
     }
 }
+
+/* configurando css da lista */
+
+
+.container--tarefas{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 2vw;
+}
+
+.lista--opcoes--editar, .lista--opcoes--excluir{
+    width: 30px;
+    height: 30px;
+    margin: 0 1vw;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.lista--checkName, .lista--opcoes{
+    display: flex;
+    align-items: center;
+}
+
+.lista--opcoes--editar{
+    background-image: url('../images/Edit.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.lista--opcoes--excluir{
+    background-image: url('../images/Trash.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.lista--checkName input[type="checkbox"]{
+    filter: grayscale(1);
+    all: unset;
+    width: 30px;
+    height: 30px;
+    margin-right: 3vw;
+    border: 1px solid black;
+    border-radius: 50%;
+    transition: all ease 0.3s;
+}
+
+.lista--checkName input:checked{
+    background-color: black;
+    width: 30px;
+    height: 30px;
+}
+
+.lista--checkName input:checked + label{
+    text-decoration: line-through;
+}
