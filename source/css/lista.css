@@ -1,5 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    min-height: 100%;
+}
+
 body{
     background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
+    background-repeat: no-repeat;
+    height: auto;
 }
 
 .body--lista--fundo{
@@ -7,7 +19,7 @@ body{
     left: 167px;
     top: 59px;*/
     width: 80%;
-    height: 100%;
+    height: auto;
     
     margin: 0 auto;
     margin-top: 10vh;
@@ -79,8 +91,8 @@ body{
     left: 78px;
     top: 303px; */
     width: 90%;
-    height: 100vh;
-    margin-top: 25px;
+    height: auto;
+    margin: 5vh 0;
     background: #E5E5E5;
 }
 
@@ -91,7 +103,30 @@ body{
     border: none;
     background-repeat: no-repeat;
     background-color: transparent;
-    margin-right: 3vw;
+    margin: 0 3vw;
     cursor: pointer;
-    padding: 10px;
+    padding: 0;
 }
+
+.body--lista--positionBtnAdd{
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+}
+
+.body--lista--btnAdd{
+    width: 58px;
+    height: 58px;
+    padding: 0;
+    margin-top: 3vh;
+    margin-right: 3vw;
+    margin-bottom: 5vh;
+    background-image: url('../images/btnAdd.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
