@@ -1,0 +1,105 @@
+body{
+    background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
+}
+
+.body--lista--fundo{
+    /*position: absolute;
+    left: 167px;
+    top: 59px;*/
+    width: 1106px;
+    height: 965px;
+    
+    margin: 0 auto;
+    margin-top: 59px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+        
+    background: rgba(255, 255, 255, 0.34);
+    border-radius: 10px;
+}
+
+.body--lista--titulo{
+    /* position: absolute;
+    left: 354px;
+    top: 36px; */
+    width: 397px;
+    height: 87px;
+
+    margin: 0 auto;
+    margin-top: 36px;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 87px;
+
+    color: #000000;
+}
+
+.body--lista--pesquisa--fundo{
+    /* position: absolute;
+    left: 78px;
+    top: 160px; */
+    margin: 0 auto;
+    width: 950px;
+    height: 118px;
+    /* margin: 0 auto; */
+    /* margin-top: 300px;  */
+
+    background: #E5E5E5;
+    border-radius: 10px;
+}
+
+.body--lista--pesquisa{
+    /* position: absolute;
+    left: 38px;
+    top: 26px; */
+    width: 873px;
+    height: 66px;
+    margin: 0 auto;
+
+    margin-top: 26px;
+
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.body--lista--barra--pesquisa{
+    width: 865px;
+    height: 60px;
+    font-size: 30px;
+    background: #FFFFFF;
+}
+
+.body--lista--lupa{
+    position: relative;
+    /* right: 15px;
+    top: 15px;  */
+    left: 821px;
+    top: -50px;
+    width: 35px;
+    height: 35px;
+}
+
+.body--lista--btn{
+    position: relative;
+    left: 782px;
+    top: -53px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.body--lista{
+    /* position: absolute;
+    left: 78px;
+    top: 303px; */
+    width: 950px;
+    height: 626px;
+    margin-top: 25px;
+    background: #E5E5E5;
+}
