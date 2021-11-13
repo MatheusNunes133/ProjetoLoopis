@@ -282,23 +282,12 @@ body{
 }
 
 
-.lista--checkName input[type="checkbox"]{
-    filter: grayscale(1);
-    all: unset;
+.lista--checkName .tarefa, .tarefa--tarefaChecked{
     width: 30px;
     height: 30px;
     margin-right: 3vw;
-    border: 1px solid black;
-    border-radius: 50%;
-    transition: all ease 0.3s;
 }
 
-.lista--checkName input:checked{
-    background-color: black;
-    width: 30px;
-    height: 30px;
-}
-
-.lista--checkName input:checked + label{
-    text-decoration: line-through;
+.lista--checkName label{
+    font-size: 16pt;
 }
