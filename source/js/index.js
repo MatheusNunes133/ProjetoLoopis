@@ -3,22 +3,22 @@
 let button = document.querySelector('.body--lista--btnAdd');
 
     button.addEventListener('click', ()=>{
-    let modal = document.querySelector('.modal');
+    let modal = document.querySelector('.modal--adicionar');
     let add = modal.className;
     modal.setAttribute("class", `${add} mostrar`);
 })
 
 //------------------- Botão fechar (Modal adicionar) ----------------------
-let fechar = document.querySelector('.modal--fechar')
+let fecharAdicionar = document.querySelector('.modalAdicionar--fechar')
 
-    fechar.addEventListener('click', fecharModal);
+    fecharAdicionar.addEventListener('click', fecharModalAdicionar);
 
 //------------------- Botão salvar (Modal adicionar) ----------------------
-let save = document.querySelector('.modal--save')
+let saveAdd = document.querySelector('.modalAdicionar--save')
 
-    save.addEventListener('click', ()=>{
+    saveAdd.addEventListener('click', ()=>{
         setListStorage();
-        fecharModal();
+        fecharModalAdicionar();
         mostrarTarefa();
     })
 
@@ -26,10 +26,10 @@ let save = document.querySelector('.modal--save')
 //------------------- Adicionando tarefas no localStorage ----------------------
 let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
 mostrarTarefasSalvas();
-
+checkarTarefas();
 
 function setListStorage(){
-    let description = document.querySelector('.modal--input');
+    let description = document.querySelector('.modalAdicionar--input');
     let getDescription = description.value;
     arrayTarefas.push(getDescription);
     localStorage.setItem('dados', JSON.stringify(arrayTarefas));
@@ -37,11 +37,22 @@ function setListStorage(){
 }
 
 //------------------- Função para fechar o modal de adicionar ----------------------
-function fecharModal(){
-    let description = document.querySelector('.modal--input');
-    let modal = document.querySelector('.modal');
-    modal.classList.remove('mostrar');
-    description.value = '';
+function fecharModalAdicionar(){
+    let descriptionAdd = document.querySelector('.modalAdicionar--input');
+    let modalAdd = document.querySelector('.modal--adicionar');
+        if(modalAdd.className == 'modal--adicionar mostrar'){
+            modalAdd.classList.remove('mostrar')
+            descriptionAdd.value = ''
+        }
+}
+
+function fecharModalEditar(){
+    let descriptionEditar = document.querySelector('.modalEditar--input');
+    let modalEditar = document.querySelector('.modal--editar');
+        if(modalEditar.className == 'modal--editar mostrar'){
+            modalEditar.classList.remove('mostrar')
+            //descriptionEditar.value = ''
+        }
 }
 
 //------------------- Funções para mostrar as tarefas no começo ----------------------
@@ -56,7 +67,7 @@ function mostrarTarefa(){
             <label for="checkbox-1">${arrayTarefas[arrayTarefas.length-1]}</label>
         </div>
         <div class="lista--opcoes">
-            <button class="lista--opcoes--editar"></button>
+            <button class="lista--opcoes--editar" onClick="editTarefa(this.parentNode)"></button>
             <button class="lista--opcoes--excluir"></button>
         </div>
     </div>
@@ -65,6 +76,7 @@ function mostrarTarefa(){
     let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
 
     divPai.insertBefore(tarefa, btnAdd);
+    checkarTarefas()
 }
 
 function mostrarTarefasSalvas(){
@@ -79,7 +91,7 @@ function mostrarTarefasSalvas(){
                 <label for="checkbox-1">${arrayTarefas[tarefaIndice]}</label>
             </div>
             <div class="lista--opcoes">
-                <button class="lista--opcoes--editar"></button>
+                <button class="lista--opcoes--editar" onClick="editTarefa(this.parentNode)"></button>
                 <button class="lista--opcoes--excluir"></button>
             </div>
         </div>
@@ -92,8 +104,9 @@ function mostrarTarefasSalvas(){
 }
 
 //------------------- Evento para verificar tarefas checadas ----------------------
-let tarefaCheck = document.querySelectorAll('img')
-let nameCheck = document.querySelectorAll('label')
+function checkarTarefas(){
+    let tarefaCheck = document.querySelectorAll('img')
+    let nameCheck = document.querySelectorAll('label')
     
     for(let i=0;i<tarefaCheck.length;i++){
         tarefaCheck[i].addEventListener('click',()=>{
@@ -109,23 +122,47 @@ let nameCheck = document.querySelectorAll('label')
                 }
         })
     }
+}
 
 //------------------- Evento para modificar o nome da tarefa ----------------------
-let changeName = document.querySelectorAll('.lista--opcoes--editar')
+function editTarefa(button){
 
-    for(let i=0;i<changeName.length;i++){
-        changeName[i].addEventListener('click', ()=>{
-            let list = JSON.parse(localStorage.getItem('dados'))
-            let nameTarefa = document.querySelectorAll('label')
-                if(nameTarefa[i].textContent == list[i]){
-                    console.log('true')
-                }else{
-                    console.log('x')
-                }
-        })
-    }
+    //chamando modal
 
-function changeNameList(){
-    
-    console.log('asd')
+            let modalEdit = document.querySelector('.modal--editar');
+            let add = modalEdit.className;
+            modalEdit.setAttribute("class", `${add} mostrar`);
+   
+    //fechando modal
+    let fecharEditar = document.querySelector('.modalEditar--fechar')
+        fecharEditar.addEventListener('click', fecharModalEditar);
+
+    /* let paiButton = button.parentNode;
+    let voButton = paiButton.parentNode */
+    let nameTarefaNv = document.querySelector('.modalEdit--input')
+    let saveEdit = document.querySelector('.modalEdit--save')
+
+    saveEdit.addEventListener('click', ()=>{
+        editListStorage(button.parentNode, nameTarefaNv);
+        
+    })
 }
+
+function editListStorage(button, nvName){
+    let list = JSON.parse(localStorage.getItem('dados'))
+
+    //console.log(nvName.value)
+    let teste = button.children[0]
+    let teste2 = teste.children[1]
+        /* for(let i = 0; i<list.length;i++){
+            if(list[i]==teste2.textContent){
+                console.log(i);
+                break
+            }
+        } */
+    return console.log(teste2)
+
+        
+        
+}
+
