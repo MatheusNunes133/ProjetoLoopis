@@ -19,7 +19,7 @@ let saveAdd = document.querySelector('.modalAdicionar--save')
     saveAdd.addEventListener('click', ()=>{
         setListStorage();
         fecharModalAdicionar();
-        mostrarTarefa();
+        refresh()
     })
 
 
@@ -48,29 +48,6 @@ function fecharModalAdicionar(){
 }
 
 //------------------- Funções para mostrar as tarefas no começo ----------------------
-function mostrarTarefa(){
-    let tarefa = document.createElement('div');
-    tarefa.className = 'body--lista--tarefa';
-
-    tarefa.innerHTML = `
-    <div class="container--tarefas">
-        <div class="lista--checkName">
-            <img src="../images/Tarefa.png" class="tarefa"/>
-            <label for="checkbox-1">${arrayTarefas[arrayTarefas.length-1]}</label>
-        </div>
-        <div class="lista--opcoes">
-            <button class="lista--opcoes--editar"></button>
-            <button class="lista--opcoes--excluir"></button>
-        </div>
-    </div>
-    `;
-    let divPai = document.getElementsByClassName('body--lista--positionBtnAdd')[0].parentNode;
-    let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
-
-    divPai.insertBefore(tarefa, btnAdd);
-    checkarTarefas();
-    editTarefa()
-}
 
 function mostrarTarefasSalvas(){
     for (let tarefaIndice = 0; tarefaIndice < arrayTarefas.length; tarefaIndice++){
@@ -118,17 +95,45 @@ function checkarTarefas(){
 }
 
 //------------------- Evento para modificar o nome da tarefa ----------------------
+let indiceClick = 0;
 function editTarefa(){
+    
     let modalEditar = document.querySelector('.modal--editar')
     let buttonEdit = document.querySelectorAll('.lista--opcoes--editar')
-        for(let i = 0;i<buttonEdit.length;i++){
-            buttonEdit[i].addEventListener('click', (event)=>{
-                    //console.log(event)
-                        if(event.target.className == 'lista--opcoes--editar'){
-                            modalEditar.classList.add('mostrar')
-                        }
-                    return 0
-            })
-        }
+        buttonEdit.forEach(addEvent)
+
+    let fechar = document.querySelector('.modalEditar--fechar')
+        fechar.addEventListener('click', (event)=>{
+                modalEditar.classList.remove('mostrar')
+            return 0;
+        })
+
+    let btnSave = document.querySelector('.modalEdit--save')
+        btnSave.addEventListener('click',()=>{
+        modalEditar.classList.remove('mostrar')
+            
+        let newName = document.querySelector('.modalEdit--input').value
+        let list = JSON.parse(localStorage.getItem('dados'))
+
+            list[indiceClick] = newName;
+            localStorage.setItem('dados', JSON.stringify(list))
+            refresh()
+        })      
 }
 
+function addEvent(element, indice, array){
+
+    let modalEditar = document.querySelector('.modal--editar')
+    element.addEventListener('click', (event)=>{
+        if(event.target.className == 'lista--opcoes--editar'){
+            modalEditar.classList.add('mostrar')
+            console.log(indice)
+            indiceClick = indice
+        }
+    })
+
+}
+
+const refresh = ()=>{
+    location.reload()
+}
