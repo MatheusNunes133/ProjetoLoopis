@@ -27,6 +27,7 @@ let saveAdd = document.querySelector('.modalAdicionar--save')
 let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
 mostrarTarefasSalvas();
 checkarTarefas();
+editTarefa()
 
 function setListStorage(){
     let description = document.querySelector('.modalAdicionar--input');
@@ -39,19 +40,10 @@ function setListStorage(){
 //------------------- Função para fechar o modal de adicionar ----------------------
 function fecharModalAdicionar(){
     let descriptionAdd = document.querySelector('.modalAdicionar--input');
-    let modalAdd = document.querySelector('.modal--adicionar');
-        if(modalAdd.className == 'modal--adicionar mostrar'){
+    let modalAdd = document.querySelector('.modal--adicionar') 
+        if(modalAdd.className == 'modal--adicionar mostrar'){ 
             modalAdd.classList.remove('mostrar')
             descriptionAdd.value = ''
-        }
-}
-
-function fecharModalEditar(){
-    let descriptionEditar = document.querySelector('.modalEditar--input');
-    let modalEditar = document.querySelector('.modal--editar');
-        if(modalEditar.className == 'modal--editar mostrar'){
-            modalEditar.classList.remove('mostrar')
-            //descriptionEditar.value = ''
         }
 }
 
@@ -67,7 +59,7 @@ function mostrarTarefa(){
             <label for="checkbox-1">${arrayTarefas[arrayTarefas.length-1]}</label>
         </div>
         <div class="lista--opcoes">
-            <button class="lista--opcoes--editar" onClick="editTarefa(this.parentNode)"></button>
+            <button class="lista--opcoes--editar"></button>
             <button class="lista--opcoes--excluir"></button>
         </div>
     </div>
@@ -76,7 +68,8 @@ function mostrarTarefa(){
     let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
 
     divPai.insertBefore(tarefa, btnAdd);
-    checkarTarefas()
+    checkarTarefas();
+    editTarefa()
 }
 
 function mostrarTarefasSalvas(){
@@ -91,7 +84,7 @@ function mostrarTarefasSalvas(){
                 <label for="checkbox-1">${arrayTarefas[tarefaIndice]}</label>
             </div>
             <div class="lista--opcoes">
-                <button class="lista--opcoes--editar" onClick="editTarefa(this.parentNode)"></button>
+                <button class="lista--opcoes--editar"></button>
                 <button class="lista--opcoes--excluir"></button>
             </div>
         </div>
@@ -125,44 +118,17 @@ function checkarTarefas(){
 }
 
 //------------------- Evento para modificar o nome da tarefa ----------------------
-function editTarefa(button){
-
-    //chamando modal
-
-            let modalEdit = document.querySelector('.modal--editar');
-            let add = modalEdit.className;
-            modalEdit.setAttribute("class", `${add} mostrar`);
-   
-    //fechando modal
-    let fecharEditar = document.querySelector('.modalEditar--fechar')
-        fecharEditar.addEventListener('click', fecharModalEditar);
-
-    /* let paiButton = button.parentNode;
-    let voButton = paiButton.parentNode */
-    let nameTarefaNv = document.querySelector('.modalEdit--input')
-    let saveEdit = document.querySelector('.modalEdit--save')
-
-    saveEdit.addEventListener('click', ()=>{
-        editListStorage(button.parentNode, nameTarefaNv);
-        
-    })
-}
-
-function editListStorage(button, nvName){
-    let list = JSON.parse(localStorage.getItem('dados'))
-
-    //console.log(nvName.value)
-    let teste = button.children[0]
-    let teste2 = teste.children[1]
-        /* for(let i = 0; i<list.length;i++){
-            if(list[i]==teste2.textContent){
-                console.log(i);
-                break
-            }
-        } */
-    return console.log(teste2)
-
-        
-        
+function editTarefa(){
+    let modalEditar = document.querySelector('.modal--editar')
+    let buttonEdit = document.querySelectorAll('.lista--opcoes--editar')
+        for(let i = 0;i<buttonEdit.length;i++){
+            buttonEdit[i].addEventListener('click', (event)=>{
+                    //console.log(event)
+                        if(event.target.className == 'lista--opcoes--editar'){
+                            modalEditar.classList.add('mostrar')
+                        }
+                    return 0
+            })
+        }
 }
 
