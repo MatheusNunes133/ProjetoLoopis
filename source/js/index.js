@@ -28,6 +28,7 @@ let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
 mostrarTarefasSalvas();
 checkarTarefas();
 editTarefa()
+deleteTarefa()
 
 function setListStorage(){
     let description = document.querySelector('.modalAdicionar--input');
@@ -100,7 +101,7 @@ function editTarefa(){
     
     let modalEditar = document.querySelector('.modal--editar')
     let buttonEdit = document.querySelectorAll('.lista--opcoes--editar')
-        buttonEdit.forEach(addEvent)
+        buttonEdit.forEach(addEventEditar)
 
     let fechar = document.querySelector('.modalEditar--fechar')
         fechar.addEventListener('click', (event)=>{
@@ -121,7 +122,7 @@ function editTarefa(){
         })      
 }
 
-function addEvent(element, indice, array){
+function addEventEditar(element, indice, array){
 
     let modalEditar = document.querySelector('.modal--editar')
     element.addEventListener('click', (event)=>{
@@ -133,6 +134,49 @@ function addEvent(element, indice, array){
     })
 
 }
+
+//------------------- Evento para deletar tarefa -------------------------------
+let indiceClickDelete = 0;
+function deleteTarefa(){
+    let modalEditar = document.querySelector('.modal--deletar')
+    let buttonEdit = document.querySelectorAll('.lista--opcoes--excluir')
+        buttonEdit.forEach(addEventDelete)
+
+
+    let fechar = document.querySelector('.modalDelete--fechar')
+        fechar.addEventListener('click', (event)=>{
+                modalEditar.classList.remove('mostrar')
+            return 0;
+        })
+
+    let btnExcluir = document.querySelector('.modalDelete--excluir')
+        btnExcluir.addEventListener('click',()=>{
+        modalEditar.classList.remove('mostrar')
+            
+    let list = JSON.parse(localStorage.getItem('dados'))
+
+            list.splice(indiceClickDelete,1)
+            localStorage.setItem('dados', JSON.stringify(list))
+            refresh()
+        })
+        
+}
+
+function addEventDelete(element, index){
+    let modalDeletar = document.querySelector('.modal--deletar')
+        element.addEventListener('click', (event)=>{
+            if(event.target.className == 'lista--opcoes--excluir'){
+                modalDeletar.classList.add('mostrar')
+                indiceClickDelete = index
+                let list = JSON.parse(localStorage.getItem('dados'))
+                let nameTask = document.querySelector('.modalDelete--div p strong')
+                    nameTask.textContent = list[indiceClickDelete]
+                console.log(indiceClickDelete)
+            }
+        })
+}
+
+
 
 const refresh = ()=>{
     location.reload()

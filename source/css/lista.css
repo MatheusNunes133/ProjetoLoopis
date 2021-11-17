@@ -153,7 +153,7 @@ body{
 }
 
 /*Configurando css do modal*/
-.modal--adicionar, .modal--editar{
+.modal--adicionar, .modal--editar, .modal--deletar{
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, .5);
@@ -166,7 +166,7 @@ body{
     justify-content: center;
 }
 
-.modalAdicionar--div, .modalEditar--div{
+.modalAdicionar--div, .modalEditar--div, .modalDelete--div{
     background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
     display: flex;
     align-items: center;
@@ -177,12 +177,12 @@ body{
     position: relative;
     border-radius: 50px;
 }
-.modal--adicionar.mostrar, .modal--editar.mostrar{
+.modal--adicionar.mostrar, .modal--editar.mostrar, .modal--deletar.mostrar{
     display: flex;
 
 }
 
-.mostrar .modalAdicionar--div, .mostrar .modalEditar--div{
+.mostrar .modalAdicionar--div, .mostrar .modalEditar--div, .mostrar .modalDelete--div{
     animation: modal .5s;
 }
 
@@ -194,7 +194,7 @@ body{
 
 }
 
-.modalAdicionar--fechar, .modalEditar--fechar{
+.modalAdicionar--fechar, .modalEditar--fechar, .modalDelete--fechar{
     position: absolute;
     top: 15px;
     right: 17px;
@@ -208,7 +208,7 @@ body{
     cursor: pointer;
 }
 
-.modalAdicionar--input, .modalEdit--input{
+.modalAdicionar--input, .modalEdit--input, .modalDelete--input{
     position: absolute;
     width: 40vw;
     height: 5vh;
@@ -218,7 +218,15 @@ body{
     border: none;
 }
 
-.modalAdicionar--save, .modalEdit--save{
+.modalDelete--div p{
+    color: white;
+    position: absolute;
+    top: 40%;
+    padding: 0 4vw;
+    font-size: 16pt;
+}
+
+.modalAdicionar--save, .modalEdit--save, .modalDelete--excluir{
     position: absolute;
     top:70%;
     width: auto;
