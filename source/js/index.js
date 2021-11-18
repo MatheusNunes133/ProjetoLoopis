@@ -25,12 +25,11 @@ let saveAdd = document.querySelector('.modalAdicionar--save')
 
 //------------------- Adicionando tarefas no localStorage ----------------------
 let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
-window.addEventListener('load',()=>{
-    mostrarTarefasSalvas();
-    checkarTarefas();
-    editTarefa()
-    deleteTarefa()
-})
+mostrarTarefasSalvas();
+checkarTarefas();
+editTarefa()
+deleteTarefa()
+
 
 function setListStorage(){
     let description = document.querySelector('.modalAdicionar--input');
