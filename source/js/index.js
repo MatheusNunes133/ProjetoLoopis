@@ -19,16 +19,18 @@ let saveAdd = document.querySelector('.modalAdicionar--save')
     saveAdd.addEventListener('click', ()=>{
         setListStorage();
         fecharModalAdicionar();
-        refresh()
+        createTask()
     })
 
 
 //------------------- Adicionando tarefas no localStorage ----------------------
 let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
-mostrarTarefasSalvas();
-checkarTarefas();
-editTarefa()
-deleteTarefa()
+window.addEventListener('load',()=>{
+    mostrarTarefasSalvas();
+    checkarTarefas();
+    editTarefa()
+    deleteTarefa()
+})
 
 function setListStorage(){
     let description = document.querySelector('.modalAdicionar--input');
@@ -111,14 +113,15 @@ function editTarefa(){
 
     let btnSave = document.querySelector('.modalEdit--save')
         btnSave.addEventListener('click',()=>{
-        modalEditar.classList.remove('mostrar')
-            
-        let newName = document.querySelector('.modalEdit--input').value
-        let list = JSON.parse(localStorage.getItem('dados'))
 
-            list[indiceClick] = newName;
-            localStorage.setItem('dados', JSON.stringify(list))
-            refresh()
+        let newName = document.querySelector('.modalEdit--input').value
+
+            arrayTarefas[indiceClick] = newName;
+            localStorage.setItem('dados', JSON.stringify(arrayTarefas))
+            //refresh()
+            atualizar(JSON.parse(localStorage.getItem('dados')))
+            newName.value = ''
+            modalEditar.classList.remove('mostrar')
         })      
 }
 
@@ -180,4 +183,39 @@ function addEventDelete(element, index){
 
 const refresh = ()=>{
     location.reload()
+}
+
+
+function createTask(){
+    let tarefa = document.createElement('div');
+        tarefa.className = 'body--lista--tarefa';
+
+        tarefa.innerHTML = `
+        <div class="container--tarefas">
+            <div class="lista--checkName">
+                <img src="../images/Tarefa.png" class="tarefa"/>
+                <label for="checkbox-1">${arrayTarefas[arrayTarefas.length - 1]}</label>
+            </div>
+            <div class="lista--opcoes">
+                <button class="lista--opcoes--editar"></button>
+                <button class="lista--opcoes--excluir"></button>
+            </div>
+        </div>
+        `;
+        let divPai = document.getElementsByClassName('body--lista--positionBtnAdd')[0].parentNode;
+        let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
+
+        divPai.insertBefore(tarefa, btnAdd)
+        checkarTarefas();
+        editTarefa()
+        deleteTarefa()
+}
+
+
+function atualizar(arrayTaref){
+    let tarefas = document.querySelectorAll('label')
+        tarefas.forEach((element, indice)=>{
+            element.textContent = arrayTaref[indice]
+        })
+        
 }
