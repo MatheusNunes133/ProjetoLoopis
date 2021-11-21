@@ -1,4 +1,7 @@
 
+let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
+
+
 //------------------- Botão adicionar (Modal adicionar) ----------------------
 let button = document.querySelector('.body--lista--btnAdd');
 
@@ -19,23 +22,18 @@ let saveAdd = document.querySelector('.modalAdicionar--save')
     saveAdd.addEventListener('click', ()=>{
         setListStorage();
         fecharModalAdicionar();
-        createTask()
+        atualizarTela()
     })
 
 
 //------------------- Adicionando tarefas no localStorage ----------------------
-let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
-mostrarTarefasSalvas();
-checkarTarefas();
-editTarefa()
-deleteTarefa()
 
 
 function setListStorage(){
     let description = document.querySelector('.modalAdicionar--input');
     let getDescription = description.value;
-    arrayTarefas.push(getDescription);
-    localStorage.setItem('dados', JSON.stringify(arrayTarefas));
+        arrayTarefas.push({tarefa: getDescription,status: ''})
+        localStorage.setItem('dados', JSON.stringify(arrayTarefas));
     description.value = '';
 }
 
@@ -51,170 +49,136 @@ function fecharModalAdicionar(){
 
 //------------------- Funções para mostrar as tarefas no começo ----------------------
 
-function mostrarTarefasSalvas(){
-    for (let tarefaIndice = 0; tarefaIndice < arrayTarefas.length; tarefaIndice++){
-        let tarefa = document.createElement('div');
-        tarefa.className = 'body--lista--tarefa';
-
+function createTarefa(nomeTarefa, status, indice){
+    let tarefa = document.createElement('div')
+        tarefa.className = 'body--lista--tarefa'
         tarefa.innerHTML = `
-        <div class="container--tarefas">
+            <div class="container--tarefas">
             <div class="lista--checkName">
-                <img src="../images/Tarefa.png" class="tarefa"/>
-                <label for="checkbox-1">${arrayTarefas[tarefaIndice]}</label>
+                <input type="checkbox" ${status} class="lista--checkName--input" data-indice=${indice}>
+                <label for="checkbox-1">${nomeTarefa}</label>
             </div>
             <div class="lista--opcoes">
                 <button class="lista--opcoes--editar"></button>
                 <button class="lista--opcoes--excluir"></button>
             </div>
         </div>
-        `;
-        let divPai = document.getElementsByClassName('body--lista--positionBtnAdd')[0].parentNode;
-        let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
+        `
 
-        divPai.insertBefore(tarefa, btnAdd)
-    }
+    let divPai = document.querySelector('.body--lista')
+        divPai.appendChild(tarefa)
 }
 
-//------------------- Evento para verificar tarefas checadas ----------------------
-function checkarTarefas(){
-    let tarefaCheck = document.querySelectorAll('img')
-    let nameCheck = document.querySelectorAll('label')
-    
-    for(let i=0;i<tarefaCheck.length;i++){
-        tarefaCheck[i].addEventListener('click',()=>{
-            let src = tarefaCheck[i].getAttribute('src')
-                if(src=='../images/Tarefa.png'){
-                    tarefaCheck[i].setAttribute('src','../images/Tarefaok.png')
-                    tarefaCheck[i].setAttribute('class', 'tarefa--tarefaChecked')
-                    nameCheck[i].style.textDecoration = 'line-through';
-                }else{
-                    tarefaCheck[i].setAttribute('src','../images/Tarefa.png')
-                    tarefaCheck[i].setAttribute('class', 'tarefa')
-                    nameCheck[i].style.textDecoration = 'none';
-                }
-        })
-    }
+const atualizarTela = ()=>{
+    limparTarefas()
+    arrayTarefas.forEach((item, indice) =>{
+            createTarefa(item.tarefa, item.status,indice)
+            checkTarefas()
+            editTarefa()
+            /* removeTarefa() */
+    })
 }
 
-//------------------- Evento para modificar o nome da tarefa ----------------------
-let indiceClick = 0;
-function editTarefa(){
-    
-    let modalEditar = document.querySelector('.modal--editar')
-    let buttonEdit = document.querySelectorAll('.lista--opcoes--editar')
-        buttonEdit.forEach(addEventEditar)
+atualizarTela()
 
-    let fechar = document.querySelector('.modalEditar--fechar')
-        fechar.addEventListener('click', (event)=>{
-                modalEditar.classList.remove('mostrar')
-            return 0;
-        })
+checkTarefas()
+editTarefa()
+/* removeTarefa() */
 
-    let btnSave = document.querySelector('.modalEdit--save')
-        btnSave.addEventListener('click',()=>{
-
-        let newName = document.querySelector('.modalEdit--input').value
-
-            arrayTarefas[indiceClick] = newName;
-            localStorage.setItem('dados', JSON.stringify(arrayTarefas))
-            //refresh()
-            atualizar(JSON.parse(localStorage.getItem('dados')))
-            newName.value = ''
-            modalEditar.classList.remove('mostrar')
-        })      
+function limparTarefas(){
+    const lista = document.querySelector('.body--lista')
+     while(lista.firstChild){
+        lista.removeChild(lista.lastChild)
+     }
 }
 
-function addEventEditar(element, indice, array){
+// --------------------------checar tarefas--------------------------------
 
-    let modalEditar = document.querySelector('.modal--editar')
+function checkTarefas(){
+let inputs = document.querySelectorAll('.lista--checkName--input')
+
+inputs.forEach((element, indice)=>{
     element.addEventListener('click', (event)=>{
-        if(event.target.className == 'lista--opcoes--editar'){
-            modalEditar.classList.add('mostrar')
-            console.log(indice)
-            indiceClick = indice
+        if(element.checked){
+            arrayTarefas[indice].status = 'checked'
+            localStorage.setItem('dados', JSON.stringify(arrayTarefas))
+        }else{
+            arrayTarefas[indice].status = ''
+            localStorage.setItem('dados', JSON.stringify(arrayTarefas))
         }
     })
-
+})
 }
 
-//------------------- Evento para deletar tarefa -------------------------------
-let indiceClickDelete = 0;
-function deleteTarefa(){
-    let modalEditar = document.querySelector('.modal--deletar')
-    let buttonEdit = document.querySelectorAll('.lista--opcoes--excluir')
-        buttonEdit.forEach(addEventDelete)
-
-
-    let fechar = document.querySelector('.modalDelete--fechar')
-        fechar.addEventListener('click', (event)=>{
-                modalEditar.classList.remove('mostrar')
-            return 0;
+let indiceClick = 0;
+function editTarefa(){
+    let buttonSaveEdit = document.querySelector('.modalEdit--save')
+        buttonSaveEdit.addEventListener('click', (event)=>{
+            let description = document.querySelector('.modalEdit--input').value
+                arrayTarefas[indiceClick].tarefa = description
+                localStorage.setItem('dados', JSON.stringify(arrayTarefas))
+            let modalEdit = document.querySelector('.modal--editar');
+                    modalEdit.classList.remove('mostrar')
+                description.value = ''
+            atualizarTela()
         })
-
-    let btnExcluir = document.querySelector('.modalDelete--excluir')
-        btnExcluir.addEventListener('click',()=>{
-        modalEditar.classList.remove('mostrar')
-            
-    let list = JSON.parse(localStorage.getItem('dados'))
-
-            list.splice(indiceClickDelete,1)
-            localStorage.setItem('dados', JSON.stringify(list))
-            refresh()
-        })
-        
+        editTarefaModal()
 }
 
-function addEventDelete(element, index){
-    let modalDeletar = document.querySelector('.modal--deletar')
-        element.addEventListener('click', (event)=>{
-            if(event.target.className == 'lista--opcoes--excluir'){
-                modalDeletar.classList.add('mostrar')
-                indiceClickDelete = index
-                let list = JSON.parse(localStorage.getItem('dados'))
-                let nameTask = document.querySelector('.modalDelete--div p strong')
-                    nameTask.textContent = list[indiceClickDelete]
-                console.log(indiceClickDelete)
-            }
+
+
+function editTarefaModal(){
+    let buttonEdit = document.querySelectorAll('.lista--opcoes--editar')
+        buttonEdit.forEach((element, indice)=>{
+            element.addEventListener('click', ()=>{
+                let modalEdit = document.querySelector('.modal--editar');
+                    modalEdit.classList.add('mostrar')
+                    indiceClick = indice
+            })
+        })
+
+    let buttonFecharEdit = document.querySelector('.modalEditar--fechar')
+        buttonFecharEdit.addEventListener('click',()=>{
+            let modalEdit = document.querySelector('.modal--editar');
+                    modalEdit.classList.remove('mostrar')
         })
 }
 
 
-
-const refresh = ()=>{
-    location.reload()
-}
-
-
-function createTask(){
-    let tarefa = document.createElement('div');
-        tarefa.className = 'body--lista--tarefa';
-
-        tarefa.innerHTML = `
-        <div class="container--tarefas">
-            <div class="lista--checkName">
-                <img src="../images/Tarefa.png" class="tarefa"/>
-                <label for="checkbox-1">${arrayTarefas[arrayTarefas.length - 1]}</label>
-            </div>
-            <div class="lista--opcoes">
-                <button class="lista--opcoes--editar"></button>
-                <button class="lista--opcoes--excluir"></button>
-            </div>
-        </div>
-        `;
-        let divPai = document.getElementsByClassName('body--lista--positionBtnAdd')[0].parentNode;
-        let btnAdd = document.getElementsByClassName('body--lista--positionBtnAdd')[0];
-
-        divPai.insertBefore(tarefa, btnAdd)
-        checkarTarefas();
-        editTarefa()
-        deleteTarefa()
-}
-
-
-function atualizar(arrayTaref){
-    let tarefas = document.querySelectorAll('label')
-        tarefas.forEach((element, indice)=>{
-            element.textContent = arrayTaref[indice]
+/* 
+let indiceDeleteClick = 0;
+function removeTarefa(){
+    let buttonExcluir = document.querySelector('.modalDelete--excluir')
+        buttonExcluir.addEventListener('click', ()=>{
+            console.log(indiceDeleteClick)
         })
-        
-}
+
+    DeleteModal()
+} 
+
+
+function DeleteModal(){
+    let removeIcon = document.querySelectorAll('.lista--opcoes--excluir')
+        removeIcon.forEach((element, indice)=>{
+            element.addEventListener('click', ()=>{
+                let modalDelete = document.querySelector('.modal--deletar')
+                    modalDelete.classList.add('mostrar')
+                    
+            })
+            indiceDeleteClick = indice
+        })
+
+    let buttonFecharDelete = document.querySelector('.modalDelete--fechar')
+        buttonFecharDelete.addEventListener('click',()=>{
+            let modalDelete = document.querySelector('.modal--deletar')
+                    modalDelete.classList.remove('mostrar')
+        })
+
+    const removeItem = (indice)=>{
+        arrayTarefas.splice(indice, 1)
+        atualizarTela()
+    }
+} */
+
+
+    

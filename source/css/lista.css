@@ -89,15 +89,12 @@ body{
 
 
 .body--lista{
-    /* position: absolute;
-    left: 78px;
-    top: 303px; */
+
     width: 90%;
     height: auto;
     margin: 5vh 0;
     background: #E5E5E5;
-    /* display: flex; */
-    /* align-items: center; */
+    padding-bottom: 4vh;
 }
 
 .body--lista--lupa{
@@ -299,4 +296,16 @@ body{
 
 .lista--checkName label{
     font-size: 16pt;
+}
+.lista--checkName label{
+    padding-left: 2vw;
+}
+
+.lista--checkName .lista--checkName--input{
+    width: 25px;
+    height: 25px;
+}
+
+.lista--checkName .lista--checkName--input:checked + label{
+    text-decoration: line-through;
 }
