@@ -75,7 +75,7 @@ const atualizarTela = ()=>{
             createTarefa(item.tarefa, item.status,indice)
             checkTarefas()
             editTarefa()
-            /* removeTarefa() */
+            deleteModal()
     })
 }
 
@@ -83,7 +83,7 @@ atualizarTela()
 
 checkTarefas()
 editTarefa()
-/* removeTarefa() */
+removeTarefa()
 
 function limparTarefas(){
     const lista = document.querySelector('.body--lista')
@@ -145,27 +145,30 @@ function editTarefaModal(){
 }
 
 
-/* 
 let indiceDeleteClick = 0;
 function removeTarefa(){
     let buttonExcluir = document.querySelector('.modalDelete--excluir')
         buttonExcluir.addEventListener('click', ()=>{
-            console.log(indiceDeleteClick)
+            arrayTarefas.splice(indiceDeleteClick,1)
+            localStorage.setItem('dados', JSON.stringify(arrayTarefas))
+            let modalDelete = document.querySelector('.modal--deletar')
+                modalDelete.classList.remove('mostrar')
+            atualizarTela()
         })
 
-    DeleteModal()
+    deleteModal()
 } 
 
 
-function DeleteModal(){
+function deleteModal(){
     let removeIcon = document.querySelectorAll('.lista--opcoes--excluir')
         removeIcon.forEach((element, indice)=>{
             element.addEventListener('click', ()=>{
                 let modalDelete = document.querySelector('.modal--deletar')
                     modalDelete.classList.add('mostrar')
-                    
+                    indiceDeleteClick = indice
             })
-            indiceDeleteClick = indice
+            
         })
 
     let buttonFecharDelete = document.querySelector('.modalDelete--fechar')
@@ -173,12 +176,7 @@ function DeleteModal(){
             let modalDelete = document.querySelector('.modal--deletar')
                     modalDelete.classList.remove('mostrar')
         })
-
-    const removeItem = (indice)=>{
-        arrayTarefas.splice(indice, 1)
-        atualizarTela()
-    }
-} */
+}
 
 
     
