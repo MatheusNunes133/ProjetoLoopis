@@ -95,6 +95,7 @@ body{
     margin: 5vh 0;
     background: #E5E5E5;
     padding-bottom: 4vh;
+    border-radius: 10px;
 }
 
 .body--lista--lupa{
@@ -113,6 +114,7 @@ body{
     display: flex;
     align-items: flex-end;
     justify-content: end;
+    width: 90%;
 }
 
 .body--lista--btnAdd{
@@ -134,15 +136,18 @@ body{
 .body--lista--tarefa{
     width: 90%;
     height: 60px;
-
     margin-left: 5%;
     margin-top: 4vh;
     background: #FFFFFF;
     border-radius: 10px;
     font-family: Nunito;
-
     display: flex;
     align-items: center;
+    transition: all ease 0.3s;
+}
+
+.body--lista--tarefa:hover{
+    background-color: rgb(98, 98, 207);
 }
 
 .body--lista--tarefa--nome{

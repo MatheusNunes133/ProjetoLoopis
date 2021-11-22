@@ -1,4 +1,4 @@
-
+//------------------- Banco de Dados ----------------------
 let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
 
 
@@ -6,10 +6,10 @@ let arrayTarefas = JSON.parse(localStorage.getItem('dados')) || []
 let button = document.querySelector('.body--lista--btnAdd');
 
     button.addEventListener('click', ()=>{
-    let modal = document.querySelector('.modal--adicionar');
-    let add = modal.className;
-    modal.setAttribute("class", `${add} mostrar`);
-})
+        let modal = document.querySelector('.modal--adicionar');
+        let add = modal.className;
+        modal.setAttribute("class", `${add} mostrar`);
+    })
 
 //------------------- Botão fechar (Modal adicionar) ----------------------
 let fecharAdicionar = document.querySelector('.modalAdicionar--fechar')
@@ -26,8 +26,8 @@ let saveAdd = document.querySelector('.modalAdicionar--save')
     })
 
 
-//------------------- Adicionando tarefas no localStorage ----------------------
 
+//------------------- Adicionando tarefas no localStorage ----------------------
 
 function setListStorage(){
     let description = document.querySelector('.modalAdicionar--input');
@@ -36,6 +36,7 @@ function setListStorage(){
         localStorage.setItem('dados', JSON.stringify(arrayTarefas));
     description.value = '';
 }
+
 
 //------------------- Função para fechar o modal de adicionar ----------------------
 function fecharModalAdicionar(){
@@ -46,6 +47,7 @@ function fecharModalAdicionar(){
             descriptionAdd.value = ''
         }
 }
+
 
 //------------------- Funções para mostrar as tarefas no começo ----------------------
 
@@ -69,6 +71,7 @@ function createTarefa(nomeTarefa, status, indice){
         divPai.appendChild(tarefa)
 }
 
+//------------------- Função que atualiza as tarefas ----------------------
 const atualizarTela = ()=>{
     limparTarefas()
     arrayTarefas.forEach((item, indice) =>{
@@ -80,11 +83,11 @@ const atualizarTela = ()=>{
 }
 
 atualizarTela()
-
 checkTarefas()
 editTarefa()
 removeTarefa()
 
+//------------------- Função para limpar as tarefas da tela ----------------------
 function limparTarefas(){
     const lista = document.querySelector('.body--lista')
      while(lista.firstChild){
@@ -92,7 +95,8 @@ function limparTarefas(){
      }
 }
 
-// --------------------------checar tarefas--------------------------------
+
+// --------------------------Função para checar tarefas--------------------------------
 
 function checkTarefas(){
 let inputs = document.querySelectorAll('.lista--checkName--input')
@@ -110,6 +114,7 @@ inputs.forEach((element, indice)=>{
 })
 }
 
+//------------------- Função para Editar as Tarefas ----------------------
 let indiceClick = 0;
 function editTarefa(){
     let buttonSaveEdit = document.querySelector('.modalEdit--save')
@@ -124,7 +129,6 @@ function editTarefa(){
         })
         editTarefaModal()
 }
-
 
 
 function editTarefaModal(){
@@ -145,6 +149,7 @@ function editTarefaModal(){
 }
 
 
+//------------------- Função para remover as tarefas ----------------------
 let indiceDeleteClick = 0;
 function removeTarefa(){
     let buttonExcluir = document.querySelector('.modalDelete--excluir')
@@ -158,7 +163,6 @@ function removeTarefa(){
 
     deleteModal()
 } 
-
 
 function deleteModal(){
     let removeIcon = document.querySelectorAll('.lista--opcoes--excluir')
