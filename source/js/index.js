@@ -86,6 +86,7 @@ atualizarTela()
 checkTarefas()
 editTarefa()
 removeTarefa()
+pesquisaTarefa()
 
 //------------------- Função para limpar as tarefas da tela ----------------------
 function limparTarefas(){
@@ -182,5 +183,29 @@ function deleteModal(){
         })
 }
 
+   // -----------------------------Pesquisa----------------------------
 
+function pesquisaTarefa(){
+    let searchBar = document.querySelector('.body--lista--barra--pesquisa')
     
+    let name = ''
+        searchBar.addEventListener('keyup',(event)=>{
+            name = event.target.value
+            pesquisaNameTarefa(name)
+        })
+}
+
+function pesquisaNameTarefa(name){
+    let tarefas = document.querySelectorAll('label')
+        tarefas.forEach((element, indice)=>{
+            console.log(element.textContent.includes(name))
+            if(!element.textContent.includes(name)=== true){
+                let divTarefa = document.querySelectorAll('.body--lista--tarefa')
+                    divTarefa[indice].style.display = 'none'
+            }
+            else{
+                let divTarefa = document.querySelectorAll('.body--lista--tarefa')
+                    divTarefa[indice].style.display = 'flex'
+            }
+        })
+} 
