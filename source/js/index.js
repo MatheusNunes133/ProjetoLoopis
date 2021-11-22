@@ -199,13 +199,13 @@ function pesquisaNameTarefa(name){
     let tarefas = document.querySelectorAll('label')
         tarefas.forEach((element, indice)=>{
             console.log(element.textContent.includes(name))
-            if(!element.textContent.includes(name)=== true){
+            if((element.textContent.includes(name.toUpperCase()) === true) || (element.textContent.includes(name.toLowerCase())===true)){
                 let divTarefa = document.querySelectorAll('.body--lista--tarefa')
-                    divTarefa[indice].style.display = 'none'
+                    divTarefa[indice].style.display = 'flex'
             }
             else{
                 let divTarefa = document.querySelectorAll('.body--lista--tarefa')
-                    divTarefa[indice].style.display = 'flex'
+                    divTarefa[indice].style.display = 'none' 
             }
         })
 } 
