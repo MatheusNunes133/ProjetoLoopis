@@ -6,9 +6,8 @@
 
 body{
     height: 100vh;
-    background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
-}
-
+    background: linear-gradient(45deg, #009DAE,#71DFE7,#C2FFF9,#FFE652); 
+ }
 .body--inicio{
     margin: 0 10%;
 }

@@ -9,7 +9,7 @@ html{
 }
 
 body{
-    background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
+    background: linear-gradient(45deg, #009DAE,#71DFE7,#C2FFF9,#FFE652); 
     background-repeat: no-repeat;
     height: auto;
 }
@@ -147,7 +147,7 @@ body{
 }
 
 .body--lista--tarefa:hover{
-    background-color: rgb(98, 98, 207);
+    background-color: #FBD148;
 }
 
 .body--lista--tarefa--nome{
@@ -169,7 +169,8 @@ body{
 }
 
 .modalAdicionar--div, .modalEditar--div, .modalDelete--div{
-    background: linear-gradient(63.18deg, #472F9F 0%, #0070E4 26.81%, #009FDF 48.59%, rgba(0, 197, 146, 0.72) 68.35%, rgba(78, 224, 0, 0.86) 85.97%);
+    height: 100vh;
+    background: linear-gradient(45deg, #009DAE,#71DFE7,#C2FFF9,#FFE652);
     display: flex;
     align-items: center;
     justify-content: center;
