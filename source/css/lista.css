@@ -222,7 +222,7 @@ body{
 }
 
 .modalDelete--div p{
-    color: white;
+    color: black;
     position: absolute;
     top: 40%;
     padding: 0 4vw;

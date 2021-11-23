@@ -125,7 +125,6 @@ function editTarefa(){
                 localStorage.setItem('dados', JSON.stringify(arrayTarefas))
             let modalEdit = document.querySelector('.modal--editar');
                     modalEdit.classList.remove('mostrar')
-                description.value = ''
             atualizarTela()
         })
         editTarefaModal()
@@ -138,6 +137,8 @@ function editTarefaModal(){
             element.addEventListener('click', ()=>{
                 let modalEdit = document.querySelector('.modal--editar');
                     modalEdit.classList.add('mostrar')
+                let modificaTarefa = document.querySelector('.modalEdit--input')
+                    modificaTarefa.value = arrayTarefas[indice].tarefa
                     indiceClick = indice
             })
         })
@@ -171,6 +172,8 @@ function deleteModal(){
             element.addEventListener('click', ()=>{
                 let modalDelete = document.querySelector('.modal--deletar')
                     modalDelete.classList.add('mostrar')
+                let tarefaModal = document.querySelector('strong')
+                    tarefaModal.innerText = arrayTarefas[indice].tarefa
                     indiceDeleteClick = indice
             })
             
